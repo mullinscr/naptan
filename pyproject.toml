@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "naptan"
@@ -27,5 +27,5 @@ homepage = "https://github.com/mullinscr/naptan"
 [project.optional-dependencies]
 dev = ["pytest", "importlib_resources"]
 
-[tool.setuptools.dynamic]
-version = {attr = "naptan.__version__"}
+[tool.hatch.version]
+path = "naptan/__init__.py"
