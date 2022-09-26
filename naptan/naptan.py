@@ -188,7 +188,7 @@ class StopList:
         pd.DataFrame
             The converted StopList.
         """
-        return pd.DataFrame([asdict(stop) for stop in self]).replace('', None)
+        return pd.DataFrame([asdict(stop) for stop in self])
 
     def filter(
             self,
