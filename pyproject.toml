@@ -17,7 +17,7 @@ dependencies = [
         "typing; python_version < '3.5'",
         "attrs",
         "pandas",
-        "importlib_resources"
+        "requests"
 ]
 dynamic = ["version"]
 
