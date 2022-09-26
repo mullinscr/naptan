@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "naptan"
+description = "Python package to quickly and easily get public transport access node data from the UK's NaPTAN API."
+authors = [{name = "Callum Mullins", email = "mullinscr@gmail.com"}]
+readme = "README.md"
+requires-python = ">=3"
+keywords = ["NaPTAN", "NPTG", "DfT", "Bus", "Transport"]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+        "typing; python_version < '3.5'",
+        "attrs",
+        "pandas",
+        "importlib_resources"
+]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://github.com/mullinscr/naptan"
+
+[project.optional-dependencies]
+dev = ["pytest", "importlib_resources"]
+
+[tool.setuptools.dynamic]
+version = {attr = "naptan.__version__"}
