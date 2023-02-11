@@ -85,7 +85,7 @@ def _process_request(area_codes: str) -> requests.models.Response:
 
 def _process_response(response: requests.models.Response) -> pd.DataFrame:
     """
-    Process the valid returned API response and return a StopList object.
+    Process the valid returned API response and return a dataframe.
 
     Parameters
     ----------
@@ -124,7 +124,7 @@ def _format_stop_areas(stops: Iterable[str]) -> str:
 
 def get_specific_stops(stops: Iterable[str]) -> pd.DataFrame:
     """
-    Returns a StopList containing just the specified stops, if present in the
+    Returns a dataframe containing just the specified stops, if present in the
     NaPTAN dataset.
 
     Parameters
@@ -144,7 +144,7 @@ def get_specific_stops(stops: Iterable[str]) -> pd.DataFrame:
 
 def get_area_stops(area_codes: Iterable[str]) -> pd.DataFrame:
     """
-    Returns a StopList containing all the stops that share the specified area codes.
+    Returns a dataframe containing all the stops that share the specified area codes.
 
     Parameters
     ----------
@@ -161,7 +161,7 @@ def get_area_stops(area_codes: Iterable[str]) -> pd.DataFrame:
 
 def get_all_stops() -> pd.DataFrame:
     """
-    Returns a StopList with all the available nationwide NaPTAN stops.
+    Returns a dataframe with all the available nationwide NaPTAN stops.
 
     Returns
     -------
