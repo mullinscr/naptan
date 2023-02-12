@@ -13,7 +13,7 @@ functions:
 - `naptan.get_area_stops`
 - `naptan.get_specific_stops`
 
-The data is returned from these functions as a StopList object, within which are
+The data is returned from these functions as a 'StopList' object, within which are
 Stop objects that hold the stop's attributes (such as ATCO code, name, location
 stop type etc).
 
@@ -119,7 +119,7 @@ def _format_stop_areas(stops: Iterable[str]) -> str:
     str
         Formatted area code string for passing to the API request, eg. '260,080'
     """
-    areas = list({stop[:3].rjust(3, '0') for stop in stops})
+    areas = sorted(list({stop[:3].rjust(3, '0') for stop in stops}))
     return ','.join(areas)
 
 def get_specific_stops(stops: Iterable[str]) -> pd.DataFrame:
