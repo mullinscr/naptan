@@ -13,23 +13,16 @@ functions:
 - `naptan.get_area_stops`
 - `naptan.get_specific_stops`
 
-The data is returned from these functions as a 'StopList' object, within which are
-Stop objects that hold the stop's attributes (such as ATCO code, name, location
-stop type etc).
-
-StopList objects can be filtered via stop atco_code, type and status. They can
-also be converted to a pandas dataframe or python dictionary. Stop objects can
-also be converted to a python dictionary.
+The data is returned from these functions as a pandas DataFrame object, with
+columns for the stops' attributes (such as ATCO code, name, location, stop type
+etc).
 
 Examples
 --------
 
->> stop_list = naptan.get_area_stops(['269'])
->> filtered = stop_list.filter(status=['active'])
->> filtered.to_dict()
->> filtered.to_dataframe()
->> filtered[0].to_dict()
-
+>> naptan.get_all_stops()
+>> naptan.get_area_stops(['260', '269'])
+>> naptan.get_specific_stops(['1000DOVA8309', '2700LLTA3054']))
 """
 from io import BytesIO
 from typing import Iterable
