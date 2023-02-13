@@ -26,10 +26,15 @@ Examples
 """
 from io import BytesIO
 import json
+import tempfile
 from typing import Iterable, Optional
+import webbrowser
 
 import requests
 import pandas as pd
+import folium
+from folium.plugins.fast_marker_cluster import FastMarkerCluster
+from folium.plugins import Search
 
 
 _BASE_URL = 'https://naptan.api.dft.gov.uk'
@@ -234,3 +239,68 @@ def export_geojson(df: pd.DataFrame, path: str) -> None:
     geojson = _generate_geojson(df)
     with open(path, 'w') as f:
         f.write(geojson)
+
+def create_map(df: pd.DataFrame, disable_cluster_zoom=17) -> folium.Map:
+    """Create a folium.Map displaying the stops.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input data frame of stops returned from naptan functions.
+    disable_cluster_zoom : int, optional
+        The zoom level at which point points are no longer clustered on the map,
+        by default 17.
+
+    Returns
+    -------
+    folium.Map
+        folium.Map object
+    """
+    central_point = df['Latitude'].median(), df['Longitude'].median()
+    m = folium.Map(location=[*central_point])
+    data = [
+        [lat, lng, atco, common_name, locality, ind, bearing]
+        for lat, lng, atco, common_name, locality, ind, bearing in zip(
+            df['Latitude'], df['Longitude'], df['ATCOCode'], df['CommonName'],
+            df['LocalityName'], df['Indicator'], df['Bearing']
+        )
+    ]
+    callback = """
+        function (row) {
+            var marker;
+            marker = L.marker(
+                new L.LatLng(row[0], row[1]),
+                {"Identifier": row[3] + ": " + row[3] + ", " + row[4]}
+            );
+            marker.bindPopup(
+                "<b>" + row[2] + "</b>"
+                + "</br>"
+                + row[4] + ", " + row[5] + " " + row[3]
+                + "</br>"
+                + "<a href=https://bustimes.org/stops/" + row[2] + ">Bus Times (" + row[6] + ")</a>");
+            return marker;
+        };
+    """
+    mc = FastMarkerCluster(
+        data,
+        callback=callback,
+        disableClusteringAtZoom=disable_cluster_zoom
+    ).add_to(m)
+    Search(layer=mc, search_label='Identifier', search_zoom=18, placeholder='Search by ATCO code...').add_to(m)
+    return m
+
+def view_map(df: pd.DataFrame, disable_cluster_zoom=17) -> None:
+    """View the stops on a folium-generated map, in the browser.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input data frame of stops returned from naptan functions.
+    disable_cluster_zoom : int, optional
+        The zoom level at which point points are no longer clustered on the map,
+        by default 17.
+    """
+    m = create_map(df, disable_cluster_zoom)
+    f = tempfile.NamedTemporaryFile(mode='wb', delete=False) 
+    m.save(f.name + '.html')
+    webbrowser.open(f.name + '.html')
