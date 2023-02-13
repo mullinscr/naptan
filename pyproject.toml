@@ -8,14 +8,13 @@ description = "Python package to quickly and easily get public transport access 
 authors = [{name = "Callum Mullins", email = "mullinscr@gmail.com"}]
 readme = "README.md"
 requires-python = ">=3"
-keywords = ["NaPTAN", "NPTG", "DfT", "Bus", "Transport"]
+keywords = ["NaPTAN", "NPTG", "DfT", "Bus", "Transport", "Public Transport", "Stop", "Traveline", "ATCO"]
 license = {text = "MIT"}
 classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
         "typing; python_version < '3.5'",
-        "attrs",
         "pandas",
         "requests"
 ]
