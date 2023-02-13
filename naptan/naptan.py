@@ -25,6 +25,7 @@ Examples
 >> naptan.get_specific_stops(['1000DOVA8309', '2700LLTA3054']))
 """
 from io import BytesIO
+import json
 from typing import Iterable
 
 import requests
@@ -162,3 +163,49 @@ def get_all_stops() -> pd.DataFrame:
         All available NaPTAN stops.
     """
     return _get_stops()
+
+def _generate_geojson(df: pd.DataFrame) -> str:
+    """Creates a geojson string from a stop dataframe.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input data frame of stops returned from naptan functions.
+
+    Returns
+    -------
+    str
+        json (geojson) formatted string of the stops and their data.
+    """
+    stops = []
+
+    for stop in df.itertuples():
+        stop_geojson = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [stop.Longitude, stop.Latitude],
+                }
+        }
+        stops.append(stop_geojson)
+
+    geojson_str = {
+        'type': 'FeatureCollection',
+        'features': stops,
+    }
+
+    return json.dumps(geojson_str)
+
+def export_geojson(df: pd.DataFrame, path: str) -> None:
+    """Export a dataframe of stops as a .json (geojson) file.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input data frame of stops returned from naptan functions.
+    path : str
+        Output path. e.g. '~/path/to/dir/naptan_stops.json'
+    """
+    geojson = _generate_geojson(df)
+    with open(path, 'w') as f:
+        f.write(geojson)
