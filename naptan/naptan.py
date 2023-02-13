@@ -270,7 +270,7 @@ def create_map(df: pd.DataFrame, disable_cluster_zoom=17) -> folium.Map:
             var marker;
             marker = L.marker(
                 new L.LatLng(row[0], row[1]),
-                {"Identifier": row[3] + ": " + row[3] + ", " + row[4]}
+                {"Identifier": row[2] + ": " + row[3] + ", " + row[4]}
             );
             marker.bindPopup(
                 "<b>" + row[2] + "</b>"
