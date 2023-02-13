@@ -16,7 +16,9 @@ classifiers = [
 dependencies = [
         "typing; python_version < '3.5'",
         "pandas",
-        "requests"
+        "requests",
+        "folium>=0.9.0",
+        "pyproj>=2.0.0"
 ]
 dynamic = ["version"]
 
