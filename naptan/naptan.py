@@ -302,7 +302,7 @@ def create_map(df: pd.DataFrame, disable_cluster_zoom=17) -> folium.Map:
                 + "</br>"
                 + row[4] + ", " + row[5] + " " + row[3]
                 + "</br>"
-                + "<a href=https://bustimes.org/stops/" + row[2] + ">Bus Times (" + row[6] + ")</a>");
+                + "<a href='https://bustimes.org/stops/" + row[2] + "' target='_blank'>Bus Times (" + row[6] + ")</a>");
             return marker;
         };
     """
