@@ -185,7 +185,8 @@ def _generate_geojson(df: pd.DataFrame) -> str:
                 'geometry': {
                     'type': 'Point',
                     'coordinates': [stop.Longitude, stop.Latitude],
-                }
+                },
+                'properties': {k: v for k, v in stop._asdict().items() if k != 'Index'}
         }
         stops.append(stop_geojson)
 
