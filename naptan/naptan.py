@@ -30,11 +30,12 @@ import tempfile
 from typing import Iterable, Optional
 import webbrowser
 
-import requests
-import pandas as pd
 import folium
 from folium.plugins.fast_marker_cluster import FastMarkerCluster
 from folium.plugins import Search
+import pandas as pd
+from pyproj import CRS, Transformer
+import requests
 
 
 _BASE_URL = 'https://naptan.api.dft.gov.uk'
@@ -82,6 +83,27 @@ def _process_request(area_codes: str) -> requests.models.Response:
         raise APIError(response.status_code, response.reason)
     return response
 
+def _convert_coords(df: pd.DataFrame) -> pd.DataFrame:
+    """Ensures the DataFrame has a full compliment of Latitude and Longitude
+    values. Fills this data in by converting the mandatory Easting and Northing
+    values.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        DataFrame of stops created by _process_response
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame with complete set of Latitude and Longitude values
+    """
+    crs_27700 = CRS('EPSG:27700')
+    crs_4326 = CRS('EPSG:4326')
+    transformer = Transformer.from_crs(crs_27700, crs_4326)
+    df['Latitude'], df['Longitude'] = transformer.transform(df['Easting'], df['Northing'])
+    return df
+
 def _process_response(response: requests.models.Response, status: Optional[str]) -> pd.DataFrame:
     """
     Process the valid returned API response and return a dataframe.
@@ -104,6 +126,9 @@ def _process_response(response: requests.models.Response, status: Optional[str])
         BytesIO(response.content),
         dtype={c: str for c in [1, 2, 6, 21, 22, 23, 24, 25]}
     )
+
+    stop_df = _convert_coords(stop_df)
+
     if status:
         status = status.lower().strip()
         if status not in ('active', 'inactive', 'pending'):
