@@ -26,7 +26,7 @@ Examples
 """
 from io import BytesIO
 import json
-from typing import Iterable
+from typing import Iterable, Optional
 
 import requests
 import pandas as pd
@@ -40,10 +40,10 @@ class APIError(Exception):
     """Raised for a status code != 200 returned from NaPTAN API"""
 
 
-def _get_stops(area_codes: str = '') -> pd.DataFrame:
+def _get_stops(area_codes: str = '', status: Optional[str] = None) -> pd.DataFrame:
     """Process the API request and returned response."""
     response = _process_request(area_codes)
-    return _process_response(response)
+    return _process_response(response, status)
 
 def _process_request(area_codes: str) -> requests.models.Response:
     """
@@ -77,7 +77,7 @@ def _process_request(area_codes: str) -> requests.models.Response:
         raise APIError(response.status_code, response.reason)
     return response
 
-def _process_response(response: requests.models.Response) -> pd.DataFrame:
+def _process_response(response: requests.models.Response, status: Optional[str]) -> pd.DataFrame:
     """
     Process the valid returned API response and return a dataframe.
 
@@ -86,15 +86,25 @@ def _process_response(response: requests.models.Response) -> pd.DataFrame:
     response : requests.models.Response
         The valid response from the NaPTAN API call.
 
+    status : str, optional
+        Return only NaPTAN stops with specific status. Must be one of None,
+        'active', 'inactive', or 'pending'.
+
     Returns
     -------
     DataFrame
         All stops returned from valid response.
     """
-    return pd.read_csv(
+    stop_df = pd.read_csv(
         BytesIO(response.content),
         dtype={c: str for c in [1, 2, 6, 21, 22, 23, 24, 25]}
     )
+    if status:
+        status = status.lower().strip()
+        if status not in ('active', 'inactive', 'pending'):
+            raise ValueError("`status` must be one of: 'active', 'inactive', or 'pending'")
+        return stop_df.query('Status == @status')
+    return stop_df
 
 def _format_stop_areas(stops: Iterable[str]) -> str:
     """
@@ -116,7 +126,7 @@ def _format_stop_areas(stops: Iterable[str]) -> str:
     areas = sorted(list({stop[:3].rjust(3, '0') for stop in stops}))
     return ','.join(areas)
 
-def get_specific_stops(stops: Iterable[str]) -> pd.DataFrame:
+def get_specific_stops(stops: Iterable[str], status: Optional[str] = None) -> pd.DataFrame:
     """
     Returns a dataframe containing just the specified stops, if present in the
     NaPTAN dataset.
@@ -127,16 +137,20 @@ def get_specific_stops(stops: Iterable[str]) -> pd.DataFrame:
         Iterable of the desired stops' ATCO code, as strings. For example:
         ['2500DCL4060', '1100DEA10139', '068000000322']
 
+    status : str, optional
+        Return only NaPTAN stops with specific status. Must be one of None,
+        'active', 'inactive', or 'pending'.
+
     Returns
     -------
     DataFrame
         Containing just the specified stops.
     """
     stop_areas = _format_stop_areas(stops)
-    returned_stops = _get_stops(stop_areas)
+    returned_stops = _get_stops(stop_areas, status)
     return returned_stops.loc[returned_stops['ATCOCode'].isin(stops)]
 
-def get_area_stops(area_codes: Iterable[str]) -> pd.DataFrame:
+def get_area_stops(area_codes: Iterable[str], status: Optional[str] = None) -> pd.DataFrame:
     """
     Returns a dataframe containing all the stops that share the specified area codes.
 
@@ -145,24 +159,34 @@ def get_area_stops(area_codes: Iterable[str]) -> pd.DataFrame:
     area_codes : Iterable[str]
         Iterable of the desired area codes as strings. For example: ['250', '110']
 
+    status : str, optional
+        Return only NaPTAN stops with specific status. Must be one of None,
+        'active', 'inactive', or 'pending'.
+
     Returns
     -------
     DataFrame
         Containing all available stops that share the specified area codes.
     """
     stop_areas = _format_stop_areas(area_codes)
-    return _get_stops(stop_areas)
+    return _get_stops(stop_areas, status)
 
-def get_all_stops() -> pd.DataFrame:
+def get_all_stops(status: Optional[str] = None) -> pd.DataFrame:
     """
     Returns a dataframe with all the available nationwide NaPTAN stops.
+
+    Parameters
+    ----------
+    status : str, optional
+        Return only NaPTAN stops with specific status. Must be one of None,
+        'active', 'inactive', or 'pending'.
 
     Returns
     -------
     DataFrame
         All available NaPTAN stops.
     """
-    return _get_stops()
+    return _get_stops(status=status)
 
 def _generate_geojson(df: pd.DataFrame) -> str:
     """Creates a geojson string from a stop dataframe.
