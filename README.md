@@ -36,7 +36,7 @@ naptan.view_map(leics_stops)
 
 ## Installation
 
-The latest release (`v0.2.0`) can be [installed from the pypi repository](https://pypi.org/project/naptan/#description)
+The [latest release](https://github.com/mullinscr/naptan/releases/tag/v0.2.0) can be [installed from the pypi repository](https://pypi.org/project/naptan/#description)
 with:
 
 ```cmd
@@ -77,7 +77,7 @@ or opened and vizualised on a map in the browser. These are achieved by:
 
 ## Changelog
 
-### v0.2.0
+### 0.2.0
 
 - Rewrite the package so the NaPTAN data is returned as a pandas.DataFrame.
 - Add functionality to export the data as a GEOjson (`naptan.export_geojson()`)
@@ -86,7 +86,7 @@ or opened and vizualised on a map in the browser. These are achieved by:
 - Add the ability to view the ATCO code to area lookup via a package-level
   variable (`naptan.ATCO_CODES_LOOKUP`)
 
-### v0.1.0
+### 0.1.0
 
 - Initial release.
 - Add functionality to get NaPTAN data with the following:
