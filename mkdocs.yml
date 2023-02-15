@@ -1,0 +1,34 @@
+site_name: naptan
+repo_url: https://github.com/mullinscr/naptan
+repo_name: GitHub
+theme:
+  name: material
+  features:
+    - content.code.annotate
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+
+plugins:
+  - search
+  - mkdocstrings
+  - mkdocs-jupyter:
+      include_source: true
+      ignore_h1_titles: true
+      execute: false
+      show_input: true
+      no_input: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - Home:
+    - Overview: index.md
+  - How to:
+    - Use ATCO codes: using_atco_codes.ipynb
+    - How to: example.ipynb
+  - API: api.md
+  - ATCO code lookup table: atco_codes_lookup.md
