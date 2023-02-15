@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>API - naptan</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">naptan</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../example.ipynb" class="nav-link">Example usage</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">API</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../example.ipynb" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/mullinscr/naptan/edit/master/docs/api.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#api-reference" class="nav-link">API Reference</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#naptan.naptan.get_specific_stops" class="nav-link">get_specific_stops()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#naptan.naptan.get_area_stops" class="nav-link">get_area_stops()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#naptan.naptan.get_all_stops" class="nav-link">get_all_stops()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#naptan.naptan.export_geojson" class="nav-link">export_geojson()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#naptan.naptan.create_map" class="nav-link">create_map()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#naptan.naptan.view_map" class="nav-link">view_map()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="api-reference">API Reference</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="naptan.naptan.get_specific_stops" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_specific_stops</span><span class="p">(</span><span class="n">stops</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a dataframe containing just the specified stops, if present in the
+NaPTAN dataset.</p>
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b>stops</b>
+            (<code><span title="typing.Iterable">Iterable</span>[str]</code>)
+        – <p>Iterable of the desired stops' ATCO code, as strings. For example:
+['2500DCL4060', '1100DEA10139', '068000000322']</p>
+      </li>
+      <li class="field-body">
+        <b>status</b>
+            (<code><span title="typing.Optional">Optional</span>[str]</code>)
+        – <p>Return only NaPTAN stops with specific status. Must be one of:
+None, 'active', 'inactive', or 'pending'. Defaults to None.</p>
+      </li>
+  </ul>
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code><span title="pandas">pd</span>.<span title="pandas.DataFrame">DataFrame</span></code>
+        – <p>The specified stops and their attributes.</p>
+      </li>
+  </ul>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="naptan.naptan.get_area_stops" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_area_stops</span><span class="p">(</span><span class="n">area_codes</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a dataframe containing all the stops that share the specified area codes.</p>
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b>area_codes</b>
+            (<code><span title="typing.Iterable">Iterable</span>[str]</code>)
+        – <p>Iterable of the desired area codes as strings. For example:
+['250', '110']</p>
+      </li>
+      <li class="field-body">
+        <b>status</b>
+            (<code><span title="typing.Optional">Optional</span>[str]</code>)
+        – <p>Return only NaPTAN stops with specific status. Must be one of:
+None, 'active', 'inactive', or 'pending'.</p>
+      </li>
+  </ul>
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code><span title="pandas">pd</span>.<span title="pandas.DataFrame">DataFrame</span></code>
+        – <p>All available stops and their attributes that share the specified area codes.</p>
+      </li>
+  </ul>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="naptan.naptan.get_all_stops" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_all_stops</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a dataframe with all the available nationwide NaPTAN stops.</p>
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b>status</b>
+            (<code><span title="typing.Optional">Optional</span>[str]</code>)
+        – <p>Return only NaPTAN stops with specific status. Must be one of:
+None, 'active', 'inactive', or 'pending'. Defaults to None.</p>
+      </li>
+  </ul>
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code><span title="pandas">pd</span>.<span title="pandas.DataFrame">DataFrame</span></code>
+        – <p>All available NaPTAN stops and their attributes in a dataframe.</p>
+      </li>
+  </ul>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="naptan.naptan.export_geojson" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">export_geojson</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Export a dataframe of stops as a .json (geojson) file.</p>
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b>df</b>
+            (<code><span title="pandas">pd</span>.<span title="pandas.DataFrame">DataFrame</span></code>)
+        – <p>Input data frame of stops returned from naptan functions.</p>
+      </li>
+      <li class="field-body">
+        <b>path</b>
+            (<code>str</code>)
+        – <p>Output path. e.g. '~/path/to/dir/naptan_stops.json'</p>
+      </li>
+  </ul>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="naptan.naptan.create_map" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">create_map</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">disable_cluster_zoom</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a folium.Map object displaying the stops.</p>
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b>df</b>
+            (<code><span title="pandas">pd</span>.<span title="pandas.DataFrame">DataFrame</span></code>)
+        – <p>Input data frame of stops returned from naptan functions.</p>
+      </li>
+      <li class="field-body">
+        <b>disable_cluster_zoom</b>
+            (<code>int</code>)
+        – <p>The zoom level at which point points are no longer
+clustered on the map, by default 17.</p>
+      </li>
+  </ul>
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code>folium.<span title="folium.Map">Map</span></code>
+        – <p>A folium.Map object that can be used interactively or embedded in a webpage.</p>
+      </li>
+  </ul>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="naptan.naptan.view_map" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">view_map</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">disable_cluster_zoom</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>View the stops on a folium-generated map, in the browser.</p>
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b>df</b>
+            (<code><span title="pandas">pd</span>.<span title="pandas.DataFrame">DataFrame</span></code>)
+        – <p>Input data frame of stops returned from naptan functions.</p>
+      </li>
+      <li class="field-body">
+        <b>disable_cluster_zoom</b>
+            (<code>int</code>)
+        – <p>The zoom level at which point points are no longer
+clustered on the map, by default 17.</p>
+      </li>
+  </ul>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
