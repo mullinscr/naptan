@@ -7,25 +7,13 @@ def read_atco_lookup():
     import pandas as pd
     import pkgutil
 
-    data = pkgutil.get_data(__package__, 'atco_code_and_areas.md')
+    data = pkgutil.get_data(__package__, 'atco_codes.csv')
     if not data:
-        raise FileNotFoundError('`atco_code_and_areas.md` could not be located.')
+        raise FileNotFoundError('`atco_codes.csv` could not be located.')
 
-    atco_df = pd.read_table(
-        io.BytesIO(data),
-        sep='|',
-        header=0,
-        skipinitialspace=True,
-        dtype=str
-    ).iloc[1:]
+    return pd.read_csv(io.BytesIO(data))
 
-    # to remove whitespace from markdown
-    atco_df.columns = atco_df.columns.str.strip()
-    for col in atco_df.columns:
-        atco_df[col] = atco_df[col].str.strip()
-    return atco_df
+ATCO_CODES = read_atco_lookup()
 
-ATCO_CODES_LOOKUP = read_atco_lookup()
-
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __author__ = 'Callum Mullins'
