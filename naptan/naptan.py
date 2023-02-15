@@ -1,7 +1,7 @@
 from io import BytesIO
 import json
 import tempfile
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Union
 import webbrowser
 
 import folium
@@ -95,12 +95,12 @@ def _process_response(response: requests.models.Response, status: Optional[str])
         return stop_df.query('Status == @status')
     return stop_df
 
-def _format_stop_areas(stops: Iterable[str]) -> str:
+def _format_stop_areas(stops: Iterable[Union[str, int]]) -> str:
     """
-    Takes stops or stop area strings and limits them to the first three digits.
+    Takes stops or stop areas and limits them to the first three characters.
 
-    Will also handle area codes that have only been passed in as '89' instead
-    of '089', for example.
+    Will also handle area codes that have only been passed in as '89' or 89
+    instead of '089', for example.
 
     Args:
         stops: Iterable of stops or area codes to be processed.
@@ -108,6 +108,7 @@ def _format_stop_areas(stops: Iterable[str]) -> str:
     Returns:
         Formatted area code string for passing to the API request, eg. '260,080'
     """
+    stops = [str(stop) for stop in stops]
     areas = sorted(list({stop[:3].rjust(3, '0') for stop in stops}))
     return ','.join(areas)
 
@@ -130,12 +131,12 @@ def get_specific_stops(stops: Iterable[str], status: Optional[str] = None) -> pd
     returned_stops = _get_stops(stop_areas, status)
     return returned_stops.loc[returned_stops['ATCOCode'].isin(stops)]
 
-def get_area_stops(area_codes: Iterable[str], status: Optional[str] = None) -> pd.DataFrame:
+def get_area_stops(area_codes: Iterable[Union[str, int]], status: Optional[str] = None) -> pd.DataFrame:
     """Returns a dataframe containing all the stops that share the specified area codes.
 
     Args:
-        area_codes: Iterable of the desired area codes as strings. For example:
-            ['250', '110']
+        area_codes: Iterable of the desired area code. Can be strings or numeric.
+            For example: ['250', '110'] or [250, 110]
 
         status: Return only NaPTAN stops with specific status. Must be one of:
             None, 'active', 'inactive', or 'pending'.
