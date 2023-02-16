@@ -187,7 +187,7 @@ def _generate_geojson(df: pd.DataFrame) -> str:
         'features': stops,
     }
 
-    return json.dumps(geojson_str)
+    return json.dumps(geojson_str, indent=2)
 
 def export_geojson(df: pd.DataFrame, path: str) -> None:
     """Export a dataframe of stops as a .json (geojson) file.
