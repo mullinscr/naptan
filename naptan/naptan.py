@@ -161,13 +161,13 @@ def get_all_stops(status: Optional[str] = None) -> pd.DataFrame:
     return _get_stops(status=status)
 
 def _generate_geojson(df: pd.DataFrame) -> str:
-    """Creates a geojson string from a stop dataframe.
+    """Creates a geoJSON string from a stop dataframe.
 
     Args:
         df: Input data frame of stops returned from naptan functions.
 
     Returns:
-        JSON (GeoJSON) formatted string of the stops and their data.
+        JSON (geoJSON) formatted string of the stops and their data.
     """
     stops = []
 
@@ -190,7 +190,7 @@ def _generate_geojson(df: pd.DataFrame) -> str:
     return json.dumps(geojson_str, indent=2)
 
 def export_geojson(df: pd.DataFrame, path: str) -> None:
-    """Export a dataframe of stops as a .json (geojson) file.
+    """Export a dataframe of stops as a .json (geoJSON) file.
 
     Args:
         df: Input data frame of stops returned from naptan functions.
