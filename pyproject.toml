@@ -23,7 +23,9 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-homepage = "https://github.com/mullinscr/naptan"
+homepage = "https://mullinscr.github.io/naptan/"
+documentation = "https://mullinscr.github.io/naptan/"
+repository = "https://github.com/mullinscr/naptan"
 
 [project.optional-dependencies]
 dev = ["pytest", "importlib_resources"]

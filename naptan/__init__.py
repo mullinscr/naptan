@@ -15,5 +15,5 @@ def read_atco_lookup():
 
 ATCO_CODES = read_atco_lookup()
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 __author__ = 'Callum Mullins'
