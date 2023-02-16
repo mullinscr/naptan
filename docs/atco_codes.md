@@ -1,9 +1,32 @@
-# ATCO Codes Lookup
+# ATCO Codes
 
-This is the table of ...
+A stop's **ATCO code** uniquely identifies the stop. It is made up of three
+parts as below:
+
+![Breakdown of an ATCO code](atco-code-breakdown.png)
+
+The ATCO area code (the first three digits) is used in the `naptan.get_area_stop()`
+function. To find the code for a specific authority or region use the table below,
+or use the `naptan.ATCO_CODES` variable. For more detail see
+["Get stops within an area"](installation.md) and
+["View and use atco codes"](using_atco_codes.ipynb).
+
+## Lookup table
+
+Below you will find, the ATCO code for each authority or area, alongside their corresponding
+region and country codes.
+
+!!! example
+
+    Leicestershire has a code of '260' and is in the 'EM' region
+
+!!! tip
+
+    The table below can be sorted -- click on a column header.
+
 
 Code | Area                       | Region | Country
-----:|:---------------------------|:-------|:-------
+:----|:---------------------------|:-------|:-------
  639 | Aberdeen                   | S      | Sct
  630 | Aberdeenshire              | S      | Sct
  649 | Angus                      | S      | Sct
