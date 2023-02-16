@@ -1,12 +1,14 @@
 # naptan: a python package
 
-Created to quickly and easily get, view, and map NaPTAN data.
+Get, view, and map NaPTAN data.
+
+---
 
 The package's functions return the data from the NaPTAN API as a pandas.DataFrame. This allows the data to be easily filtered, queried and manipulated. Once you have the data, you can export the data as a geoJSON, or view it via an interactive map.
 
 ```python
 """
-Example code to view all the active NaPTAN stops within Leicester and
+Example code to view all the NaPTAN stops within Leicester and
 Leicestershire on a map in the browser.
 """
 import naptan
