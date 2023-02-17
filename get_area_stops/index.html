@@ -1609,7 +1609,7 @@ Licensed under the Apache License, Version 2.0.
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Instead of looking at the dataset for all of England, Scotland and Wales, we
 might just be interested in stops within an area. Using the
-<a href="../using_atco_codes.ipynb">ATCO area codes</a> we can limit the API request to a
+<a href="using_atco_codes.ipynb">ATCO area codes</a> we can limit the API request to a
 specific set of stops — meaning less post-filtering and a faster response time.</p>
 <p>For example, to get just the stops of Leicestershire we can pass its area code
 of '260' into the <code>naptan.get_area_stops</code> function.</p>
@@ -1625,7 +1625,7 @@ of '260' into the <code>naptan.get_area_stops</code> function.</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>This function requires a list be passed into the <code>area_codes</code> parameter. Even just for a single area.<br>However, the code can be passed in as a number or a string.</p>
+<p>This function requires a list be passed into the <code>area_codes</code> parameter. Even just for a single area.<br>The code can be passed in as a number or a string.</p>
 </div>
 </div>
 </div>
@@ -2003,8 +2003,8 @@ naptan.get_area_stops(['260']) # passed in as a list</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <hr>
-<p>We can ask for an arbitrary number of areas at once. We could get Leicester <em>and</em>
-Leicestershire at once for example by passing in their respective area codes (269, 260)</p>
+<p>We can ask for an arbitrary number of areas at once. For example, we can get both
+Leicester <em>and</em> Leicestershire by passing in their respective area codes (269, 260).</p>
 
 </div>
 </div>
