@@ -8,7 +8,7 @@ parts as below:
 The ATCO area code (the first three digits) is used in the `naptan.get_area_stop()`
 function. To find the code for a specific authority or region use the table below,
 or use the `naptan.ATCO_CODES` variable. For more detail see
-["Get stops within an area"](installation.md) and
+["Get stops within an area"](get_area_stops.ipynb) and
 ["View and use atco codes"](using_atco_codes.ipynb).
 
 ## Lookup table

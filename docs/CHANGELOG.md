@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/mullinscr/naptan/releases/tag/v0.2.1)
+
+### Added
+
+- Documentation and tutorials etc via this website (https://mullinscr.github.io/naptan/)
+
+
 ## [0.2.0](https://github.com/mullinscr/naptan/releases/tag/v0.2.0)
 
 ### Changed
