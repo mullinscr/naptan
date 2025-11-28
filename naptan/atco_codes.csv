@@ -89,10 +89,10 @@ Code,Area,Region,Country
 228,North East Lincolnshire,EM,Eng
 616,North Lanarkshire,S,Sct
 227,North Lincolnshire,EM,Eng
+305,North Northamptonshire,EM,Eng
 19,North Somerset,SW,Eng
 291,Norwich,SW,Eng
 320,North Yorkshire,Y,Eng
-300,Northamptonshire,EM,Eng
 310,Northumberland,NE,Eng
 339,Nottingham,EM,Eng
 330,Nottinghamshire,EM,Eng
@@ -141,6 +141,7 @@ Code,Area,Region,Country
 608,West Dunbartonshire,S,Sct
 629,West Lothian,S,Sct
 430,West Midlands,WM,Eng
+300,West Northamptonshire,EM,Eng
 440,West Sussex,SE,Eng
 450,West Yorkshire,Y,Eng
 601,Western Isles,S,Sct
